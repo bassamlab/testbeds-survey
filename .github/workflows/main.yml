@@ -23,16 +23,15 @@ jobs:
       run: |
         unzip export.zip "Testbed.html" -d extracted
 
-    - name: Move Testbed.html to the root of the gh-pages branch
+    - name: Move Testbed.html to assets directory
       run: |
-        mv extracted/Testbed.html .
+        mkdir -p assets  # Ensure the assets folder exists
+        mv extracted/Testbed.html assets/testbed.html  # Move the HTML to assets/testbed.html
 
-    - name: Set up GitHub Pages branch (gh-pages)
+    - name: Commit and push the Testbed.html to the main branch
       run: |
-        git fetch origin gh-pages:gh-pages || git checkout --orphan gh-pages  # Ensure gh-pages branch exists
-        git checkout gh-pages
-        git rm -rf .  # Remove all existing files in gh-pages (optional)
-        mv Testbed.html .  # Move Testbed.html to the root of the gh-pages branch
-        git add Testbed.html
-        git commit -m "Update Testbed.html"
-        git push origin gh-pages
+        git config --global user.name "github-actions"
+        git config --global user.email "github-actions@github.com"
+        git add assets/testbed.html  # Add the HTML file in assets
+        git commit -m "Update Testbed.html in assets"
+        git push origin main  # Push to the main branch
