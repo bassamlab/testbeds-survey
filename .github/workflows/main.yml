@@ -19,11 +19,7 @@ jobs:
       uses: actions/setup-python@v4
       with:
         python-version: '3.x'
-
-    - name: Install required dependencies
-      run: |
-        pip install requests zipfile
-
+        
     - name: Download Google Sheets Export Zip
       run: |
         curl -L -o export.zip "https://docs.google.com/spreadsheets/d/13I_KQ4usdABOUNE-BkHhORcXaCwDpq7y5ziBq86lC5U/export?format=zip&id=13I_KQ4usdABOUNE-BkHhORcXaCwDpq7y5ziBq86lC5U"
