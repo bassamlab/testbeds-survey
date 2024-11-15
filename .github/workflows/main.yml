@@ -1,6 +1,9 @@
 name: Export Google Sheet to HTML
 
 on:
+  push:
+    branches:
+      - main  # Trigger on changes to the `main` branch
   schedule:
     - cron: '0 * * * *'  # Run every hour on the hour
 
