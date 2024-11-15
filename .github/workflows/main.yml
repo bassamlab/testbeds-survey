@@ -15,11 +15,6 @@ jobs:
     - name: Checkout the repository
       uses: actions/checkout@v3
 
-    - name: Set up Python (for downloading and extraction)
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.x'
-        
     - name: Download Google Sheets Export Zip
       run: |
         curl -L -o export.zip "https://docs.google.com/spreadsheets/d/13I_KQ4usdABOUNE-BkHhORcXaCwDpq7y5ziBq86lC5U/export?format=zip&id=13I_KQ4usdABOUNE-BkHhORcXaCwDpq7y5ziBq86lC5U"
@@ -28,14 +23,16 @@ jobs:
       run: |
         unzip export.zip "Testbed.html" -d extracted
 
-    - name: Move Testbed.html to the root directory
+    - name: Move Testbed.html to the root of the gh-pages branch
       run: |
         mv extracted/Testbed.html .
 
-    - name: Commit and push the Testbed.html to the main branch
+    - name: Set up GitHub Pages branch (gh-pages)
       run: |
-        git config --global user.name "github-actions"
-        git config --global user.email "github-actions@github.com"
+        git fetch origin gh-pages:gh-pages || git checkout --orphan gh-pages  # Ensure gh-pages branch exists
+        git checkout gh-pages
+        git rm -rf .  # Remove all existing files in gh-pages (optional)
+        mv Testbed.html .  # Move Testbed.html to the root of the gh-pages branch
         git add Testbed.html
         git commit -m "Update Testbed.html"
-        git push origin main
+        git push origin gh-pages
