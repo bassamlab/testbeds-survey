@@ -27,6 +27,7 @@ jobs:
       run: |
         mkdir -p assets  # Ensure the assets folder exists
         mv extracted/Testbed.html assets/testbed.html  # Move the HTML to assets/testbed.html
+        mv extracted/resources/sheet.css assets/resources/sheet.css  # Move the CSS to assets/resources/sheet.css
 
     - name: Commit and push the Testbed.html to the main branch
       run: |
