@@ -5,7 +5,7 @@ on:
     branches:
       - main  # Trigger on changes to the `main` branch
   schedule:
-    - cron: '0 * * * *'  # Run every hour on the hour
+    - cron: '0 0 * * *'  # Run once a day at midnight UTC
 
 jobs:
   download-and-publish:
